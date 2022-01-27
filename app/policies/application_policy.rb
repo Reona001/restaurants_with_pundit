@@ -8,6 +8,7 @@ class ApplicationPolicy
     @record = record
   end
 
+  # all of these will return a boolean
   def index?
     false
   end
@@ -18,9 +19,12 @@ class ApplicationPolicy
 
   def create?
     false
+    # If this is set to false it will return false to all the policies so the user
+    # will not be able to create a restaurant
   end
 
   def new?
+    # calling create
     create?
   end
 

@@ -15,6 +15,12 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/new
   def new
     @restaurant = Restaurant.new
+    authorize @restaurant
+    # => we need to say which users can see this form in restaurant policy
+    # we need to think of who can see this form and that is determined by the instance of restaurant.
+    # we need to authorize the instance itself because it's used to show the form
+    # we are authorizind @restaurant instance
+    # keyword authorize and whatever you want to authorize
   end
 
   # GET /restaurants/1/edit
@@ -25,6 +31,7 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(restaurant_params)
     @restaurant.user = current_user
+    authorize @restaurant
     # we get the name of the restaurant from the :name params
     # then we are setting the creator/user of the restaurant to the current user
 
@@ -66,6 +73,7 @@ class RestaurantsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
       @restaurant = Restaurant.find(params[:id])
+      authorize @restaurant
     end
 
     # Only allow a list of trusted parameters through.
